@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { Schema } from 'yup';
+import { AnySchema } from 'yup';
 
 const DEFINITION_PREFIX = 'yup.';
 
@@ -32,7 +32,7 @@ const isYupSchemaDefinition = (value: any): boolean => (
  * @param {array} json
  * @param {object} instance
  */
-const transformSchema = (json: any[], instance: typeof yup): Schema<any> => {
+const transformSchema = (json: any[], instance: typeof yup): AnySchema<any> => {
   const mapArgument = (argument: any) => {
     if (isYupSchemaDefinition(argument)) {
       return transformSchema(argument, instance);
@@ -72,7 +72,7 @@ const transformSchema = (json: any[], instance: typeof yup): Schema<any> => {
  * @return {object} The original object with its values replaced by yup validators
  */
 export function transformObject<T extends object, R extends {
-  [P in keyof T]: Schema<any>
+  [P in keyof T]: AnySchema<any>
 }>(json: T, instance = yup): R {
   return Object.entries(json).reduce(
     (obj, [key, value]) => ({
@@ -92,7 +92,7 @@ export function transformObject<T extends object, R extends {
  * @param json
  * @param instance An optional yup instance
  */
-export function transformAll<T = any>(json: any[], instance = yup): Schema<T> {
+export function transformAll<T = any>(json: any[], instance = yup): AnySchema<T> {
   const wrapped = Array.isArray(json[0]) ? json : [json];
 
   if (!isYupSchemaDefinition(wrapped)) {

@@ -49,10 +49,11 @@
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
   },
-  "dependencies": {
-    "yup": "^0.28.3"
-  },
+  "dependencies": {},
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "peerDependencies": {
+    "yup": "^0.32.9"
+  }
 }
